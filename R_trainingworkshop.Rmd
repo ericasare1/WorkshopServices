@@ -8,6 +8,25 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+# What I expect you to know at the end of workshop!
+```{r}
+library(DiagrammeR)
+DiagrammeR::grViz("digraph {
+  graph [layout = dot, rankdir = TB]
+  
+  node [shape = rectangle]        
+  rec1 [label = 'Step 1. Raw/Messy Data']
+  rec2 [label = 'Step 2. Clean Data']
+  rec3 [label =  'Step 3. Data Exploration/Wrangling']
+  rec4 [label = 'Step 4. Data Analysis']
+  rec5 [label = 'Step 5. Results Presentation']
+
+  
+  # edge definitions with the node IDs
+  rec1 -> rec2 -> rec3 -> rec4
+  }", 
+  height = 500)
+```
 
 ## History of R
 

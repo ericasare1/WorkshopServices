@@ -1,0 +1,141 @@
+---
+title: "African Center for Applied Machine Learning, Artificial Intelligence, and Policy: R Training Workshop"
+author: "Eric Asare,Ph.D."
+date: "11/7/2020"
+output: slidy_presentation
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# What I expect you to know how to perform at least steps (1-3) with R at the end of workshop. We plan to organise specialised workshops in the future, including Steps (4-5)! 
+```{r, echo = FALSE}
+library(DiagrammeR)
+DiagrammeR::grViz("digraph {
+  graph [layout = dot, rankdir = TB]
+  
+  node [shape = rectangle]        
+  rec1 [label = 'Step 1. Raw/Messy Data']
+  rec2 [label = 'Step 2. Clean Data']
+  rec3 [label =  'Step 3. Data Exploration/Wrangling']
+  rec4 [label = 'Step 4. Data Analysis']
+  rec5 [label = 'Step 5. Results Presentation']
+
+  
+  # edge definitions with the node IDs
+  rec1 -> rec2 -> rec3 -> rec4 -> rec5 -> rec1
+  }", 
+  height = 400)
+```
+
+# General Overview of R
+
+## History of R
+
+* R is a programming language which was created in 1991 by Ross Ihaka and Robert Gentleman.
+
+* It was created originally for data analysis and graphics, and documented in this puplished paper: 
+ 
+> Ross Ihaka and Robert Gentleman. R: A language for data analysis and graphics. Journal of   Computational and Graphical Statistics, 5(3):299–314, 1996  
+  <http://biostat.mc.vanderbilt.edu/wiki/pub/Main/JeffreyHorner/JCGSR.pdf>
+
+* Martin Mächler in 1995 convinced the creators of R to use the GNU General Public License to make R free software.
+
+* In 2000 R version 1.0.0 was released to the public.
+
+* R has remained an open source software till today with a great online community of users and support.
+
+For more details on the history of R see <https://www.r-project.org/about.html>.
+
+
+## How Popular is R as a Programming Language?
+
+![Popular Programming Languages in the World](figures/Popular-Programmig-Languages.png)
+
+Source: <https://www.northeastern.edu/graduate/blog/most-popular-programming-languages/>
+
+
+# R Studio
+
+* It is an integrated development environment for R, a programming language for statistical computing and graphics.
+
+### Project Management
+
+* We will thtough an example of how to properly manage your research project to make your life easy!
+
+## Basic R To Know!
+
+### Data types
+
+It is an attribute of data which tells the compiler or interpreter how the programmer intends to use the data. The primitive data types are:
+
+* character: "a", "swc"
+* numeric: 2, 15.5
+* integer: 2L (the L tells R to store this as an integer)
+* blogical: TRUE, FALSE
+* complex: 1+4i (complex numbers with real and imaginary parts
+
+Functions to check to examnine attributes of data types
+
+* class() - what kind of object is it (high-level)?
+* typeof() - what is the object’s data type (low-level)?
+* length() - how long is it? What about two dimensional objects?
+* attributes() - does it have any metadata?
+
+```{r}
+x <- "Eric"
+class(x)
+```
+### Function
+Provides a means to work on a data object: Select, transform, filter and many more
+
+```{r}
+addnumbers <- function(x, y){
+  sum <- x +y
+  return(sum)
+}
+
+addnumbers(2,5)
+```
+### Control Mechanism
+
+```{r}
+if (1 >3){
+  print("yes")
+}else {
+  print("No")
+}
+
+```
+
+
+### Installing Packages
+
+* A package bundles together code, data, documentation, and tests, and is easy to share with others
+
+* We are going to work with the tidyverse package for data analysis.
+
+* We use the install.packages("package") to install and library("package") to activate it.
+
+```{r}
+#install.packages("tidyverse")
+library("tidyverse")
+```
+
+
+## Tidyverse
+
+* The tidyverse is an opinionated collection of R packages designed for data science.
+
+Let's check its website: < https://www.tidyverse.org/>
+
+* It uses the pipes (%>%) to chain a series of related activities together.
+
+### Packages within tidyverse
+
+* ggplot2 : is a system for declaratively creating graphics
+* dplyr : provides a grammar of data manipulation, providing a consistent set of verbs that           solve the most common data manipulation challenges
+* readr : provides a fast and friendly way to read rectangular data
+* tidymodels : provide a comprehensive foundation for creating and using models of all                     types
+* purr and many others...
+
+# We are going to work on the practical stuff in R studio!!

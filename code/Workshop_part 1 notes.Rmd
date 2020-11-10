@@ -1,0 +1,97 @@
+---
+title: "African Center for Applied Machine Learning, Artificial Intelligence, and Policy: R Training Workshop Part 1"
+author: "Eric Asare,Ph.D."
+date: "11/8/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tidyverse Package
+The tidyverse package undoubtedly is the most important package for data analysis in R. It assemblies all the packages you need for your data-analysis. For this part of the workshop we will go through importing data, and data transformations. Parameter estimation and reporting will be in workshop part 2. The # sign is used to write notes; that is explain what each line is doing. It makes it easier to understand your code whn you revisit it say in month time.
+
+```{r cars}
+#install tidyverse to allow me use all the other data analysis tools
+#install.packages("tidyverse") #installs tidyverse
+library("tidyverse") # activate the package so we can use it
+```
+
+## In built data
+We are going to use the inbuilt msleep data from ggplot2. GGPLOT2 is a package in tidyverse. You are going to see lots of %>%. The %>% are called pipes and it links separate data analysis activities together. For instance, below, we are going to read in the data (first activity) and then view it (second activity) all linked through %>%. The glimpe function is in dplyr also a package in tidyverse that allows us to see at a glance the data types for each column in our dataset.
+
+```{r}
+workshop_data <- msleep # i have assigned the msleep data in ggplot2 to workshop_data
+workshop_data %>% #first activity
+  glimpse() #second activity
+  
+```
+
+## Data Wrangling
+
+Data wrangling is a datascience term for all the series of activities you will perform on your raw and sometimes messy dataset to transform it into a clean and tidy dataset for analysis. Today we will go through the three main data wrangling essentials for cleaning data.
+
+They are:
+1. Data Selection: Selecting a sub-section of columns from the dataset.
+2. Data Filtering: Selecting a sub-section of rows from dataset.
+3. Data Mutating: Creating new columns from existing columns based on a formula.
+
+We will just introduce you some of the tools in tidyverse, in particular the dplyr package, for data wrangling. I think the dplyr package is the most important too for data wrangling. 
+
+### Data Selection
+In this section we r going to select some variables from the original dataset (workshop_data) and name it as data1
+
+```{r}
+#A1. Selecting columns with the select() function from dpylr and store the new data as data1
+data1 <- workshop_data %>% #first step data
+  select(name, genus, sleep_total, awake)  #second is selection
+
+data1 %>%
+  glimpse() #3 see that data
+
+```
+
+### Data filtering
+Here we are going to keep on a certain subset of our original dataset rows based on the condition that we keep only the rows in which the values in the bodywt column is greater than 4.  This is an example. We could also filter based on other conditions or a combination of conditions. We have introduced the summary() function to allow us to calculate the summary statistics of the new variables in our new dataset.
+
+```{r}
+data_filter <- workshop_data %>% #first step data
+  filter(bodywt > 4) #second is selection
+
+data_filter %>%
+  glimpse() #3 see that data
+
+# the summary fucntion helps us to view the summary stats of the new dataset
+data_filter %>%
+  summary() #3 see that data
+```
+
+### Data Mutate
+Here are are going to create another column, the square of bodywt, from our existing column (bodywt). Again we have introduced another function called View(), which helps us to open the new data in a new window. 
+
+```{r}
+# Mutate
+data_mutate <- workshop_data %>% #first step data
+  mutate(bodywt_sq = bodywt * bodywt) %>% 
+  select(bodywt, bodywt_sq) # we select only the original and new column to view
+
+data_mutate %>%
+  View()
+```
+
+### Putting it all together
+In a typical data cleaning workm we would normally do the above steps all chained together. This is where tidyverse comes in handy. It automates all our work for us so that in the future we can just work on the script to produce new results easily. We will be using this strategy in our future workshops. The goal is to make data analysis as efficient and enjoyable as possible!
+
+```{r}
+Final_data <- workshop_data %>% #first step data
+  select(name, genus, sleep_total, awake, bodywt) %>% # sel variables
+  filter(sleep_total > 3) %>% #filter rows based to satisfy this condition sleep_total > 20
+  mutate(bodywt_sq = bodywt * bodywt,
+         bodywt_cube = bodywt * bodywt * bodywt) 
+
+```
+
+## Conclusion
+
+We have gone through essential skills that would allow for efficient data wrangling in R. In the future workshop II we will add two other essential skils, model estimation and also reporting. The goal is to give you a taste of what R can do. In the future will be organising tailored workshops on varied topics to make you an expert user in R. We will also provide you with certificates and a way to show your R experience to potential employers through Github. 

@@ -2,7 +2,7 @@
 title: "African Center for Applied Machine Learning, Artificial Intelligence, and Policy: R Training Workshop Part 1"
 author: "Eric Asare,Ph.D."
 date: "11/8/2020"
-output: pdf_document
+output: "word"
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Tidyverse Package
-The tidyverse package undoubtedly is the most important package for data analysis in R. It assemblies all the packages you need for your data-analysis. For this part of the workshop we will go through importing data, and data transformations. Parameter estimation and reporting will be in workshop part 2. The # sign is used to write notes; that is explain what each line is doing. It makes it easier to understand your code whn you revisit it say in month time.
+The tidyverse package undoubtedly is the most important package for data analysis in R. It assemblies all the packages you need for your data-analysis. In this workshop we will go through a series of data transformations on an in built R dataset called msleep from the ggplot2 package. Parameter estimation and reporting will be in workshop part 2. The # sign is used to write notes on what your code means, and since this is a comment it will not run in R. It makes it easier to understand your code when you revisit it say in month time. Also, you will be seeing a lot of <- which is used to assign values to variables.
 
 ```{r cars}
 #install tidyverse to allow me use all the other data analysis tools
@@ -19,8 +19,8 @@ library("tidyverse") # activate the package so we can use it
 ```
 
 ## In built data
-We are going to use the inbuilt msleep data from ggplot2. GGPLOT2 is a package in tidyverse. You are going to see lots of %>%. The %>% are called pipes and it links separate data analysis activities together. For instance, below, we are going to read in the data (first activity) and then view it (second activity) all linked through %>%. The glimpe function is in dplyr also a package in tidyverse that allows us to see at a glance the data types for each column in our dataset.
-
+We are going to use the inbuilt msleep data from ggplot2. GGPLOT2 is a package in tidyverse. You are going to see lots of %>%. The %>% are called pipes and it links separate data analysis activities together. For instance, below, we are going to read in the data (first activity) and then view it (second activity) all linked through %>%. The glimpe function is in dplyr also a package in tidyverse that allows us to see at a glance the data types for each column in our dataset. 
+ 
 ```{r}
 workshop_data <- msleep # i have assigned the msleep data in ggplot2 to workshop_data
 workshop_data %>% #first activity
@@ -30,17 +30,17 @@ workshop_data %>% #first activity
 
 ## Data Wrangling
 
-Data wrangling is a datascience term for all the series of activities you will perform on your raw and sometimes messy dataset to transform it into a clean and tidy dataset for analysis. Today we will go through the three main data wrangling essentials for cleaning data.
+Data wrangling is a data-science term for all the series of activities you will perform on your raw and sometimes messy dataset to transform it into a clean and tidy dataset for analysis. Today we will go through the three main data wrangling essentials for cleaning data.
 
 They are:
 1. Data Selection: Selecting a sub-section of columns from the dataset.
 2. Data Filtering: Selecting a sub-section of rows from dataset.
 3. Data Mutating: Creating new columns from existing columns based on a formula.
 
-We will just introduce you some of the tools in tidyverse, in particular the dplyr package, for data wrangling. I think the dplyr package is the most important too for data wrangling. 
+We will just introduce you to some of the tools in tidyverse, in particular the dplyr package, for data wrangling. I think the dplyr package is the most important tool for data wrangling. 
 
 ### Data Selection
-In this section we r going to select some variables from the original dataset (workshop_data) and name it as data1
+In this section we are going to select some variables from the original dataset (workshop_data) and name it as data1
 
 ```{r}
 #A1. Selecting columns with the select() function from dpylr and store the new data as data1
@@ -68,7 +68,7 @@ data_filter %>%
 ```
 
 ### Data Mutate
-Here are are going to create another column, the square of bodywt, from our existing column (bodywt). Again we have introduced another function called View(), which helps us to open the new data in a new window. 
+Here are going to create another column, the square of bodywt, from our existing column (bodywt). Again we have introduced another function called View(), which helps us to open the new data in a new window. 
 
 ```{r}
 # Mutate
@@ -81,7 +81,7 @@ data_mutate %>%
 ```
 
 ### Putting it all together
-In a typical data cleaning workm we would normally do the above steps all chained together. This is where tidyverse comes in handy. It automates all our work for us so that in the future we can just work on the script to produce new results easily. We will be using this strategy in our future workshops. The goal is to make data analysis as efficient and enjoyable as possible!
+In a typical data cleaning workflow we would normally do the above steps all chained together. This is where tidyverse comes in handy. It automates all our work for us so that in the future we can just work on the script to produce new results easily. We will be using this strategy in our future workshops. The goal is to make data analysis as efficient and enjoyable as possible!
 
 ```{r}
 Final_data <- workshop_data %>% #first step data

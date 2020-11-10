@@ -3,7 +3,7 @@
 install.packages("tidyverse") #install tidyverse
 library("tidyverse") # activate the package
 
-# first section will read inbuilt data from the ggplot2 package
+# first section will read inbuilt data from the ggplot2 package called msleep
 #install.packages("ggplot2") # I am installing ggplot2 to get access to the msleep dataset
 #library("ggplot2") # library activates the ggplot2 package so that i can access it
 

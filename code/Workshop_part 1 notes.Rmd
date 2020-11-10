@@ -14,7 +14,7 @@ The tidyverse package undoubtedly is the most important package for data analysi
 
 ```{r cars}
 #install tidyverse to allow me use all the other data analysis tools
-#install.packages("tidyverse") #installs tidyverse
+#install.packages("tidyverse") #copy this and run it in the console!
 library("tidyverse") # activate the package so we can use it
 ```
 

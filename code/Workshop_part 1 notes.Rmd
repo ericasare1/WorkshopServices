@@ -2,7 +2,7 @@
 title: "African Center for Applied Machine Learning, Artificial Intelligence, and Policy: R Training Workshop Part 1"
 author: "Eric Asare,Ph.D."
 date: "11/8/2020"
-output: "word"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Tidyverse Package
-The tidyverse package undoubtedly is the most important package for data analysis in R. It assemblies all the packages you need for your data-analysis. In this workshop we will go through a series of data transformations on an in built R dataset called msleep from the ggplot2 package. Parameter estimation and reporting will be in workshop part 2. The # sign is used to write notes on what your code means, and since this is a comment it will not run in R. It makes it easier to understand your code when you revisit it say in month time. Also, you will be seeing a lot of <- which is used to assign values to variables.
+The tidyverse package undoubtedly is the most important package for data analysis in R. It assemblies all the packages you need for your data-analysis. In this workshop we will go through a series of data transformations on an in built R dataset called msleep from the ggplot2 package. Parameter estimation and reporting will be in workshop part 2. The # sign is used to write notes on what your code means, and since this is a comment it will not run in R. It makes it easier to understand your code when you revisit it say in month time. Also, you will be seeing a lot of <- which is used to assign values to variables. Please copy the phrase "install.packages("tidyverse")", paste it in the R console and run it; this will make sure the latest version of the package is installed. But, I have put it in the script to document it.
 
 ```{r cars}
 #install tidyverse to allow me use all the other data analysis tools

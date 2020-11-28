@@ -5,7 +5,7 @@ if (!require(pacman)) {
 }
 
 # Load Packages
-p_load(tidyverse, dplyr, summarytools)
+p_load(tidyverse, dplyr, summarytools, ggplot2)
 
 # Import data 
 #-----------------------------------------------
@@ -65,14 +65,29 @@ transformed_wtp <- wtp_orginal %>%
   select(obsid,lnwtp)
 
 meta_data %>% select(-c(lnwtp)) %>% inner_join(transformed_wtp, by = "obsid") %>% 
+  mutate(lnacres = log(q1-q0),
+         canada = ifelse(canada == 1, "canada", "usa")) %>%
   write.csv("data/final_28_11_20")
 
-# Part B
+# Part B --Exploration
+finaldata <- read_csv("data/final_28_11_20")
+
+#Summary Stats for whole data
+sum_whole <- finaldata %>% descr(stats = "common") %>% tb()
+
+# Grouped summary statis
+grouped_canada <- finaldata %>% group_by(canada) %>% descr(stats = "common") %>% tb()
+
+#graphs
+finaldata %>%
+  ggplot(aes(x = lnacres, y = lnwtp, color=canada)) + geom_point() 
+ggsave("figures/lnwtp_lnacres.png")
+
+#Part C--Model estimation
+
+model_fit <- function(finaldata) lm(lnwtp ~ lnacres, data = finaldata)
+fitted <- finaldata%>%
+  mutate(model = map(~fit_model))
 
 
 
-
-
-
-
-#Part C

@@ -5,7 +5,7 @@ if (!require(pacman)) {
 }
 
 # Load Packages
-p_load(tidyverse, dplyr, summarytools, ggplot2)
+p_load(tidyverse, dplyr, summarytools, ggplot2, broom, gtsummary)
 
 # Import data 
 #-----------------------------------------------
@@ -78,16 +78,30 @@ sum_whole <- finaldata %>% descr(stats = "common") %>% tb()
 # Grouped summary statis
 grouped_canada <- finaldata %>% group_by(canada) %>% descr(stats = "common") %>% tb()
 
+
 #graphs
 finaldata %>%
   ggplot(aes(x = lnacres, y = lnwtp, color=canada)) + geom_point() 
 ggsave("figures/lnwtp_lnacres.png")
 
+finaldata %>%  
+  ggplot(aes(x = lnacres, y = lnwtp)) + 
+  geom_point() +
+  facet_wrap(~canada) + 
+  theme_bw()
+
 #Part C--Model estimation
+lmfit <- lm(lnwtp ~ lnacres, data = finaldata)
 
-model_fit <- function(finaldata) lm(lnwtp ~ lnacres, data = finaldata)
-fitted <- finaldata%>%
-  mutate(model = map(~fit_model))
+lmfit_sum <- lm(lnwtp ~ lnacres, data = finaldata) %>% summary()
+
+lmfit_tidy <- lm(lnwtp ~ lnacres, data = finaldata) %>% tidy() #model parameter estimates
+
+lmfit_glance <- lm(lnwtp ~ lnacres, data = finaldata) %>% glance() # goodness of fitness measures and related statistics. 
+
+lmfit_augment <- lm(lnwtp ~ lnacres, data = finaldata) %>% augment() # fitted values, residuals 
+
+lmfit_tabreg <- lm(lnwtp ~ lnacres, data = finaldata) %>% tbl_regression() # my favorite
 
 
-
+t1 <- tbl_regression(lmfit) #awesome package...

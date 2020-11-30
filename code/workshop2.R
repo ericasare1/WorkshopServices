@@ -1,5 +1,3 @@
-
-
 #Empirical Example
 if (!require(pacman)) {
   install.packages("pacman")
@@ -9,33 +7,19 @@ if (!require(pacman)) {
 # Load Packages
 p_load(tidyverse, dplyr, summarytools, ggplot2, broom, gtsummary)
 
-
-
 # Import data 
 #-----------------------------------------------
-# wtp values from a mixed sample: us and canadian
-# wtp values are in 2017 us$ for the us sample
-# wtp values from canadian side are mixed interms of years : 2001, 2011, ..can$
-
-#) 1. have to convert all the monetary values of wtp in one standard $ demon 2018 C$
-
-
-cpi_us <- read_csv("data/cpi_usa.csv")
+cpi_us <- read_csv("data/cpi_usa.csv") 
 cpi_can <- read_csv("data/cpi_canada.csv") 
-exch_rate_us_to_can <- read_csv("data/exc_us_to_can.csv") 
+exch_rate_us_to_can <- read_csv("data/exc_us_to_can.csv")
 wtp_orginal <- read_csv("data/wtp_raw.csv")
-meta_data <- read_csv("data/finaldata.csv") 
+meta_data <- read_csv("data/finaldata.csv")
 
 #Part A
-exchrate <- exch_rate_us_to_can %>%  #step 1: get in raw data 
-  group_by(Year) %>% 
+exchrate <- exch_rate_us_to_can %>% 
+  group_by(Year) %>%
   summarize(av_monthly_excrate = mean(exchrate)) %>%
   column_to_rownames("Year") 
-
-exchrate %>% View()
-
-exchrate_2018 <- exchrate["2018", "av_monthly_excrate"]
-exchrate_2018
 
 avcpi_us_2018 <- 105.9447
 avcpi_can_2018 <- 104
@@ -43,8 +27,8 @@ avcpi_can_2018 <- 104
 rel_cpi_us <- cpi_us %>% 
   group_by(year) %>% 
   summarise(average_us_cpi = mean(us_cpi)) %>% 
-  mutate(rel_cpi = avcpi_us_2018/average_us_cpi) %>% 
-  column_to_rownames("year")
+  mutate(rel_cpi = avcpi_us_2018/average_us_cpi) %>%
+  column_to_rownames("year") 
 
 rel_cpi_can <- cpi_can %>% 
   group_by(year) %>% 
@@ -52,8 +36,7 @@ rel_cpi_can <- cpi_can %>%
   mutate(rel_cpi = avcpi_can_2018/average_can_cpi) %>%
   column_to_rownames("year") 
 
-
-us_study_relcpi <- rel_cpi_us["2017", "rel_cpi"] #
+us_study_relcpi <- rel_cpi_us["2017", "rel_cpi"]
 tkac <- rel_cpi_can["2001", "rel_cpi"]
 trenholm <- rel_cpi_can["2007", "rel_cpi"]
 pattisson <- rel_cpi_can["2008", "rel_cpi"]
@@ -62,6 +45,7 @@ rudd <- rel_cpi_can["2011", "rel_cpi"]
 he <- rel_cpi_can["2013", "rel_cpi"]
 vossler <- rel_cpi_can["2014", "rel_cpi"]
 
+exchrate_2018 <- exchrate["2018", "av_monthly_excrate"]
 
 transformed_wtp <- wtp_orginal %>%
   mutate(rel_cpi = 0,
@@ -82,7 +66,7 @@ transformed_wtp <- wtp_orginal %>%
 
 meta_data %>% select(-c(lnwtp)) %>% inner_join(transformed_wtp, by = "obsid") %>% 
   mutate(lnacres = log(q1-q0),
-         canada = ifelse(canada == 1, "canada", "usa")) %>% 
+         canada = ifelse(canada == 1, "canada", "usa")) %>%
   write.csv("data/final_28_11_20")
 
 # Part B --Exploration
@@ -111,13 +95,13 @@ lmfit <- lm(lnwtp ~ lnacres, data = finaldata)
 
 lmfit_sum <- lm(lnwtp ~ lnacres, data = finaldata) %>% summary()
 
-lm(lnwtp ~ lnacres, data = finaldata) %>% tidy() #model parameter estimates
+lmfit_tidy <- lm(lnwtp ~ lnacres, data = finaldata) %>% tidy() #model parameter estimates
 
-lm(lnwtp ~ lnacres, data = finaldata) %>% glance() # goodness of fitness measures and related statistics. 
+lmfit_glance <- lm(lnwtp ~ lnacres, data = finaldata) %>% glance() # goodness of fitness measures and related statistics. 
 
-lm(lnwtp ~ lnacres, data = finaldata) %>% augment() # fitted values, residuals 
+lmfit_augment <- lm(lnwtp ~ lnacres, data = finaldata) %>% augment() # fitted values, residuals 
 
-lm(lnwtp ~ lnacres, data = finaldata) %>% tbl_regression() # my favorite
+lmfit_tabreg <- lm(lnwtp ~ lnacres, data = finaldata) %>% tbl_regression() # my favorite
 
 
 t1 <- tbl_regression(lmfit) #awesome package...

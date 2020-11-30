@@ -61,4 +61,3 @@ Final_data <- workshop_data %>% #first step data
          bodywt_cube = bodywt * bodywt * bodywt) 
    
 
-#Final_data %>% run my model 
